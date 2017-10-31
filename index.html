@@ -1,0 +1,125 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>my-carousel demo</title>
+
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="my-carousel.html">
+    <link rel="import" href="my-description.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-input/paper-input.html">
+  <link rel="import" href="bower_components/d2l-file-uploader/d2l-file-uploader.html">
+
+  <style>
+
+    my-carousel {
+      width: 100%;
+    }
+
+    my-carousel::after {
+      display: block;
+      content: '';
+      padding-top: 75%; /* 4:3 = height is 75% of width */
+    }
+
+    my-carousel img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <my-carousel id="images">
+    <!--
+    <img data-src="https://app-layout-assets.appspot.com/assets/bg1.jpg">
+    <img data-src="https://app-layout-assets.appspot.com/assets/bg2.jpg">
+    <img data-src="https://app-layout-assets.appspot.com/assets/bg3.jpg">
+    <img data-src="https://app-layout-assets.appspot.com/assets/bg4.jpg">
+    -->
+    <img data-src="images/pic1.jpg">
+    <img data-src="images/pic2.jpg">
+    <img data-src="images/pic3.jpg">
+    <img data-src="images/pic4.jpg">
+
+  </my-carousel>
+
+  <my-description id="desc">
+    <p>first description</p>
+    <p>second description</p>
+    <p>third description</p>
+    <p>fourth description</p>
+
+  </my-description>
+
+  <h1>Upload Image</h1>
+  <!-- simply a form element that asks for the image directory and descriptions through use of input fields.
+  <div class="card">
+      <h4>Image directory: <paper-input id = "imgPath"></paper-input></h4>
+      <h4>Description: <paper-input id = "imgDesc"></paper-input></h4>
+      <paper-button raised class = "custom green" onclick="addImage()">Submit</paper-button>
+  </div>
+  -->
+  <!--<d2l-file-uploader label="image"></d2l-file-uploader>-->
+
+  <script>
+      const imgCarousel = document.querySelector('#images');
+      setInterval(_ => imgCarousel.next(), 3000);
+
+      const descCarousel = document.querySelector('#desc');
+
+
+      var el = document.querySelector('my-carousel');
+      if(el){
+          el.addEventListener('clickedNext', function (e) {
+              console.log('clicked next!');
+              descCarousel.next();
+
+          });
+
+          el.addEventListener('clickedPrev', function (e) {
+              console.log('clicked previous!');
+              descCarousel.previous();
+          });
+
+          el.addEventListener('upload', function (e) {
+             addImage(img, desc);
+          });
+      }
+      else{
+          setInterval(_ => descCarousel.next(), 3000);
+      }
+
+      function addImage() {
+          /*
+          console.log(document.querySelector('#imgPath').value);
+          console.log(document.querySelector('#imgDesc').value);
+          let imgPath = document.querySelector('#imgPath').value;
+          let imgDesc = document.querySelector('#imgDesc').value
+
+          let img = document.createElement('img');
+          let desc = document.createElement('p');
+          img.setAttribute('data-src', imgPath);
+          desc.innerHTML = imgDesc;
+          imgCarousel.appendChild(img);
+          descCarousel.appendChild(desc);
+          */
+      }
+
+  </script>
+</body>
+</html>
