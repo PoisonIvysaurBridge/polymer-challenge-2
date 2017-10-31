@@ -41,8 +41,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             width: 100%;
             height: 100%;
         }
+
+        paper-button.primary {
+            color: #fff;
+            background: limegreen;/*var(--primary-color);*/
+        }
+
     </style>
     <style is="custom-style">
+
         vaadin-upload.thick-border {
             --primary-color: mediumslateblue;
             --dark-primary-color: #063;
@@ -89,29 +96,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <bwt-uploader></bwt-uploader>
 <d2l-file-uploader label="image"></d2l-file-uploader>
   -->
-<vaadin-upload class="thick-border" max-files="1"></vaadin-upload>
+<vaadin-upload class="thick-border" on-upload-success="uploaded()" max-files="1"></vaadin-upload>
 
 <div class="card">
     <!--
     <h4>Image directory: <paper-input id = "imgPath"></paper-input></h4>-->
     <h4>Description: <paper-input id="imgDesc"></paper-input></h4>
-    <paper-button raised class = "custom green" onclick="addImage()">Submit</paper-button>
+    <paper-button raised class="primary" onclick="addImage()">Submit</paper-button>
 </div>
 
 <script>
+    var imgPath = 'images/';
 
     const imgCarousel = document.querySelector('#images');
     setInterval(_ => imgCarousel.next(), 3000);
 
     const descCarousel = document.querySelector('#desc');
 
-
+    window.addEventListener('upload-success', function (e) {
+        console.log('upload successful!');
+        imgPath = 'images/' + e.detail.file.name;
+        if(imgPath)
+            console.log(imgPath);
+    });
     var el = document.querySelector('my-carousel');
     if(el){
         el.addEventListener('clickedNext', function (e) {
             console.log('clicked next!');
             descCarousel.next();
-
         });
 
         el.addEventListener('clickedPrev', function (e) {
@@ -128,10 +140,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     function addImage() {
-        /*
-         console.log(document.querySelector('#imgPath').value);
-         let imgPath = document.querySelector('#imgPath').value;
-         */
+
+        //imgPath = 'images/' + document.querySelector('vaadin-upload').shadowRoot.innerHTML; //shadowRoot.querySelector('#name').value;
+        console.log(imgPath);
+
         let img = document.createElement('img');
         img.setAttribute('data-src', imgPath);
         imgCarousel.appendChild(img);
@@ -158,6 +170,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 if (done < total) {
                     setTimeout(progress, 200);
                     done = Math.min(total, done + 254000);
+
                 } else if (!file.abort) {
                     setTimeout(finish, 1000);
                 }
@@ -173,6 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     window.addEventListener('WebComponentsReady', function() {
         // Monkey-patch vaadin-upload prototype to use MockHttpRequest
         Object.getPrototypeOf(document.createElement('vaadin-upload'))._createXhr = mockXhrGenerator;
+        this.dispatchEvent(new CustomEvent('upload-success', {bubbles :  true, composed: true}));
     });
 </script>
 </body>
