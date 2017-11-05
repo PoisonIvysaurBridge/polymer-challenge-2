@@ -113,7 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     const descCarousel = document.querySelector('#desc');
 
-    window.addEventListener('upload-success', function (e) {
+    window.addEventListener('upload-success', function (e) {    // gets the file name upon upload
         console.log('upload successful!');
         imgPath = 'images/' + e.detail.file.name;
         if(imgPath)
@@ -131,11 +131,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             descCarousel.previous();
         });
 
-        el.addEventListener('upload', function (e) {
+        el.addEventListener('upload', function (e) {    // unused junk
             addImage(img, desc);
         });
     }
-    else{
+    else{   // unused junk
         setInterval(_ => descCarousel.next(), 3000);
     }
 
@@ -156,7 +156,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     }
 </script>
-<script>
+<script>// for the vaadin element
     function mockXhrGenerator(file) {
         var xhr = new MockHttpRequest();
         xhr.upload = {};
