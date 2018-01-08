@@ -1,5 +1,5 @@
 # polymer-challenge-2 for WEBTECH class
-A mini polymer challenge that implements the Building and Image Carousel App in Polymer 2.0 tutorial (codelabs.developers.google.com/codelabs/polymer-2-carousel) and extends with more features such as letting the user upload images and their descriptions to the carousel app.
+A mini polymer challenge from WEBTECH class that implements the Building and Image Carousel App in Polymer 2.0 tutorial (codelabs.developers.google.com/codelabs/polymer-2-carousel) and extends with more features such as letting the user upload images and their descriptions to the carousel app.
 
 General Instructions: Using the image carousel application as your second Polymer application, you are to create your own customized image carousel application with additional features. Your grade is dependent on the number of features you have for your custom image carousel application. 
 
